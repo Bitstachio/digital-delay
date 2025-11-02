@@ -20,6 +20,9 @@ void A2StarterAudioProcessorEditor::initTimeIntervalKnob() {
 
     addAndMakeVisible(&timeIntervalLabel);
     addAndMakeVisible(&timeIntervalKnob);
+
+    timeIntervalAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.apvts, "TIME_INTERVAL", timeIntervalKnob);
 }
 
 void A2StarterAudioProcessorEditor::initFeedbackKnob() {
@@ -39,6 +42,9 @@ void A2StarterAudioProcessorEditor::initFeedbackKnob() {
 
     addAndMakeVisible(&feedbackLabel);
     addAndMakeVisible(&feedbackKnob);
+
+    feedbackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.apvts, "FEEDBACK", feedbackKnob);
 }
 
 void A2StarterAudioProcessorEditor::initDryKnob() {
@@ -58,6 +64,9 @@ void A2StarterAudioProcessorEditor::initDryKnob() {
 
     addAndMakeVisible(&dryLabel);
     addAndMakeVisible(&dryKnob);
+
+    dryAttachment =
+        std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "DRY", dryKnob);
 }
 
 void A2StarterAudioProcessorEditor::initWetKnob() {
@@ -77,6 +86,9 @@ void A2StarterAudioProcessorEditor::initWetKnob() {
 
     addAndMakeVisible(&wetLabel);
     addAndMakeVisible(&wetKnob);
+
+    wetAttachment =
+        std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "WET", wetKnob);
 }
 
 //===== Constructor & Destructor =====

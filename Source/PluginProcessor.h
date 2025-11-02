@@ -4,7 +4,9 @@
 
 class A2StarterAudioProcessor : public juce::AudioProcessor {
 public:
-    float volumeBoost;
+    float                              volumeBoost; // TODO: Delete
+    juce::AudioProcessorValueTreeState apvts;
+
     //==============================================================================
     A2StarterAudioProcessor();
     ~A2StarterAudioProcessor() override;
@@ -48,4 +50,6 @@ private:
     int                      delayBufferLength;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessor)
+
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 };
