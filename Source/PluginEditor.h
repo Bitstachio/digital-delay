@@ -17,7 +17,52 @@ private:
     // access the processor object that created it.
     A2StarterAudioProcessor &audioProcessor;
 
-    juce::Slider volumeSlider; // [1]
+    //===== Volume Slider ======
+
+    juce::Label volumeLabel;
+
+    juce::Slider                                                          volumeSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
+
+    void initVolumeSlider();
+
+    //===== Time Interval Knob ======
+
+    juce::Label timeIntervalLabel;
+
+    juce::Slider                                                          timeIntervalKnob;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> timeIntervalAttachment;
+
+    void initTimeIntervalKnob();
+
+    //===== Feedback Knob ======
+
+    juce::Label feedbackLabel;
+
+    juce::Slider                                                          feedbackKnob;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
+
+    void initFeedbackKnob();
+
+    //===== Dry Knob ======
+
+    juce::Label dryLabel;
+
+    juce::Slider                                                          dryKnob;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dryAttachment;
+
+    void initDryKnob();
+
+    //===== Wet Knob ======
+
+    juce::Label wetLabel;
+
+    juce::Slider                                                          wetKnob;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> wetAttachment;
+
+    void initWetKnob();
+
+    //===== Macros =====
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessorEditor)
 };
