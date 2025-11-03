@@ -62,6 +62,20 @@ private:
 
     void initWetKnob();
 
+    //===== Zeno Toggle ======
+
+    juce::ToggleButton                                                    zenoToggle;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> zenoAttachment;
+
+    void initZenoToggle();
+
+    //===== Ping Pong Toggle ======
+
+    juce::ToggleButton                                                    pingPongToggle;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> pingPongAttachment;
+
+    void initPingPongToggle();
+
     //===== Macros =====
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessorEditor)

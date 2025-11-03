@@ -91,6 +91,32 @@ void A2StarterAudioProcessorEditor::initWetKnob() {
         std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "WET", wetKnob);
 }
 
+void A2StarterAudioProcessorEditor::initZenoToggle() {
+    zenoToggle.setButtonText("Zeno");
+    zenoToggle.setClickingTogglesState(true);
+    zenoToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
+    zenoToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
+    zenoToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+
+    addAndMakeVisible(&zenoToggle);
+
+    zenoAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts,
+                                                                                            "ZENO", zenoToggle);
+}
+
+void A2StarterAudioProcessorEditor::initPingPongToggle() {
+    pingPongToggle.setButtonText("Ping Pong");
+    pingPongToggle.setClickingTogglesState(true);
+    pingPongToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
+    pingPongToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
+    pingPongToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+
+    addAndMakeVisible(&pingPongToggle);
+
+    pingPongAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(
+        audioProcessor.apvts, "PING_PONG", pingPongToggle);
+}
+
 //===== Constructor & Destructor =====
 
 A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProcessor &p)
@@ -101,6 +127,8 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     initFeedbackKnob();
     initDryKnob();
     initWetKnob();
+    initZenoToggle();
+    initPingPongToggle();
 }
 
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
@@ -128,6 +156,10 @@ void A2StarterAudioProcessorEditor::resized() {
     wetLabel.setBounds(360, 140, 100, 30);
     wetLabel.setJustificationType(juce::Justification::centred);
     wetKnob.setBounds(470, 140, 180, 40);
+
+    zenoToggle.setBounds(30, 220, 100, 30);
+
+    pingPongToggle.setBounds(360, 220, 100, 30);
 }
 
 void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {

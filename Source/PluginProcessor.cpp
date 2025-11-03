@@ -187,6 +187,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::cre
     params.push_back(std::make_unique<juce::AudioParameterInt>("FEEDBACK", "Feedback", 0, 100, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("DRY", "Dry", 0, 100, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("WET", "Wet", 0, 100, 0));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", false));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping Pong", false));
 
     return {params.begin(), params.end()};
 }
