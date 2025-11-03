@@ -52,4 +52,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessor)
 
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    std::vector<int> delayBufferIndices;
 };

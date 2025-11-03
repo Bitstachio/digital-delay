@@ -74,8 +74,7 @@ void A2StarterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
     rate        = static_cast<float>(sampleRate);
     volumeBoost = 1.0;
 
-    // Need to change this value to a number that corresponds to 3 seconds
-    delayBufferLength = 1;
+    delayBufferLength = static_cast<int>(sampleRate * 3.0f);
 
     delayBuffer.setSize(2, delayBufferLength);
     delayBuffer.clear();
@@ -113,25 +112,49 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
     juce::ScopedNoDenormals noDenormals;
     auto                    totalNumInputChannels  = getTotalNumInputChannels();
     auto                    totalNumOutputChannels = getTotalNumOutputChannels();
+    auto                    numSamples             = buffer.getNumSamples();
 
-    // Clears extra output channels to remove garbage data and avoid feedback if the plugin doesn’t write to them
+    // Clear extra output channels
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear(i, 0, buffer.getNumSamples());
+        buffer.clear(i, 0, numSamples);
+
+    float interval = apvts.getRawParameterValue("TIME_INTERVAL")->load();
+    float feedback = apvts.getRawParameterValue("FEEDBACK")->load() / 100;
+    float dryLevel = apvts.getRawParameterValue("DRY")->load() / 100;
+    float wetLevel = apvts.getRawParameterValue("WET")->load() / 100;
+
+    // Normalize dry/wet if > 1.0
+    float mixSum = dryLevel + wetLevel;
+    if (mixSum > 1.0f) {
+        dryLevel /= mixSum;
+        wetLevel /= mixSum;
+    }
+
+    int usedDelayBufferLength = static_cast<int>(rate * interval + 0.5f);
+
+    // Ensure per-channel delay indices
+    if (delayBufferIndices.size() != totalNumInputChannels)
+        delayBufferIndices.resize(totalNumInputChannels, 0);
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel) {
-        float *data       = buffer.getWritePointer(channel, 0);
-        int    numSamples = buffer.getNumSamples();
+        float *channelData = buffer.getWritePointer(channel);
+        float *delayData   = delayBuffer.getWritePointer(channel);
+        int   &index       = delayBufferIndices[channel];
 
-        for (int i = 0; i < numSamples; ++i) {
-            data[i] = data[i] * volumeBoost;
+        for (int i = 0; i < numSamples; i++) {
+            float inputSample   = channelData[i];
+            float delayedSample = delayData[index];
+
+            // Output with dry/wet mix, clipped
+            float outSample = dryLevel * inputSample + wetLevel * delayedSample;
+            channelData[i]  = juce::jlimit(-1.0f, 1.0f, outSample);
+
+            // Feedback: store into delay buffer without clipping
+            delayData[index] = inputSample + delayedSample * feedback;
+
+            // Increment delay buffer index (wrap around)
+            index = (index + 1) % usedDelayBufferLength;
         }
-
-        // Get a pointer to write in the delayBuffer
-        float *delayData = delayBuffer.getWritePointer(channel);
-
-        // Write something to the delayBuffer
-
-        // Must also write to the output buffer
     }
 }
 
