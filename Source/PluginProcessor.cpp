@@ -130,8 +130,6 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
         wetLevel /= mixSum;
     }
 
-    int usedDelayBufferLength = static_cast<int>(rate * interval + 0.5f);
-
     // Ensure per-channel delay indices
     if (delayBufferIndices.size() != totalNumInputChannels)
         delayBufferIndices.resize(totalNumInputChannels, 0);
@@ -149,11 +147,13 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
             float outSample = dryLevel * inputSample + wetLevel * delayedSample;
             channelData[i]  = juce::jlimit(-1.0f, 1.0f, outSample);
 
+            // Schedule echo for the future
             // Feedback: store into delay buffer without clipping
-            delayData[index] = inputSample + delayedSample * feedback;
+            int echoIndex        = static_cast<int>(index + interval * rate) % delayBufferLength;
+            delayData[echoIndex] = inputSample + delayedSample * feedback;
 
             // Increment delay buffer index (wrap around)
-            index = (index + 1) % usedDelayBufferLength;
+            index = (index + 1) % delayBufferLength;
         }
     }
 }
