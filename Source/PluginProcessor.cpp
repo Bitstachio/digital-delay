@@ -74,7 +74,9 @@ void A2StarterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
     rate        = static_cast<float>(sampleRate);
     volumeBoost = 1.0;
 
-    delayBufferLength = static_cast<int>(sampleRate * 3.0f);
+    // Multiply sample rate by 3 to accommodate the max delay of 3 seconds
+    // Multiple sample rate by 2 to accommodate for echos in Zeno mode
+    delayBufferLength = static_cast<int>(sampleRate * 6);
 
     delayBuffer.setSize(2, delayBufferLength);
     delayBuffer.clear();
@@ -123,6 +125,8 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
     float dryLevel = apvts.getRawParameterValue("DRY")->load() / 100;
     float wetLevel = apvts.getRawParameterValue("WET")->load() / 100;
 
+    bool isZenoMode = apvts.getRawParameterValue("ZENO")->load();
+
     // Normalize dry/wet if > 1.0
     float mixSum = dryLevel + wetLevel;
     if (mixSum > 1.0f) {
@@ -147,10 +151,21 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
             float outSample = dryLevel * inputSample + wetLevel * delayedSample;
             channelData[i]  = juce::jlimit(-1.0f, 1.0f, outSample);
 
-            // Schedule echo for the future
+            // Schedule echos for the future
             // Feedback: store into delay buffer without clipping
-            int echoIndex        = static_cast<int>(index + interval * rate) % delayBufferLength;
-            delayData[echoIndex] = inputSample + delayedSample * feedback;
+            int offset = interval * rate;
+            if (isZenoMode) {
+                int echoIndex1 = static_cast<int>(index + offset) % delayBufferLength;
+                int echoIndex2 = static_cast<int>(index + offset * 1.5f) % delayBufferLength;
+                int echoIndex3 = static_cast<int>(index + offset * 1.75f) % delayBufferLength;
+
+                delayData[echoIndex1] += inputSample * feedback;
+                delayData[echoIndex2] += inputSample * feedback;
+                delayData[echoIndex3] += inputSample * feedback;
+            } else {
+                int echoIndex        = static_cast<int>(index + offset) % delayBufferLength;
+                delayData[echoIndex] = inputSample + delayedSample * feedback;
+            }
 
             // Increment delay buffer index (wrap around)
             index = (index + 1) % delayBufferLength;
