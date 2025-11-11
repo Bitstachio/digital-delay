@@ -112,9 +112,10 @@ bool A2StarterAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts)
 
 void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juce::MidiBuffer &midiMessages) {
     juce::ScopedNoDenormals noDenormals;
-    auto                    totalNumInputChannels  = getTotalNumInputChannels();
-    auto                    totalNumOutputChannels = getTotalNumOutputChannels();
-    auto                    numSamples             = buffer.getNumSamples();
+
+    auto totalNumInputChannels  = getTotalNumInputChannels();
+    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    auto numSamples             = buffer.getNumSamples();
 
     // Clear extra output channels
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
@@ -144,15 +145,23 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
         int   &index       = delayBufferIndices[channel];
 
         for (int i = 0; i < numSamples; i++) {
-            float inputSample   = channelData[i];
+            float inputSample = channelData[i];
+
+            /* Clear buffer position after reading the delayed sample.
+             * Delayed samples are added rather than replaced.
+             * If not cleared, leftover values persist and keep accumulating,
+             * even when no new input is present. */
             float delayedSample = delayData[index];
+            delayData[index]    = 0;
 
             // Output with dry/wet mix, clipped
             float outSample = dryLevel * inputSample + wetLevel * delayedSample;
             channelData[i]  = juce::jlimit(-1.0f, 1.0f, outSample);
 
-            // Schedule echos for the future
-            // Feedback: store into delay buffer without clipping
+            /* Use addition instead of replacement to support Zeno mode.
+             * In Zeno mode, echoes are scheduled in the future, so multiple delayed
+             * samples may overlap in the buffer. Adding ensures that upcoming echoes
+             * aren't overwritten by zeros from earlier, empty samples. */
             int offset = interval * rate;
             if (isZenoMode) {
                 int echoIndex1 = static_cast<int>(index + offset) % delayBufferLength;
