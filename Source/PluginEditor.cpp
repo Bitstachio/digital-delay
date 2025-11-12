@@ -13,7 +13,7 @@ void A2StarterAudioProcessorEditor::initTimeIntervalKnob() {
     timeIntervalKnob.setPopupDisplayEnabled(true, false, this);
     timeIntervalKnob.setValue(0);
 
-    timeIntervalKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 20);
+    timeIntervalKnob.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
     timeIntervalKnob.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
     timeIntervalKnob.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
     timeIntervalKnob.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
@@ -35,7 +35,7 @@ void A2StarterAudioProcessorEditor::initFeedbackKnob() {
     feedbackKnob.setPopupDisplayEnabled(true, false, this);
     feedbackKnob.setValue(0);
 
-    feedbackKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 20);
+    feedbackKnob.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
     feedbackKnob.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
     feedbackKnob.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
     feedbackKnob.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
@@ -48,7 +48,7 @@ void A2StarterAudioProcessorEditor::initFeedbackKnob() {
 }
 
 void A2StarterAudioProcessorEditor::initDryKnob() {
-    dryLabel.setText("Dry", juce::dontSendNotification);
+    dryLabel.setText("Dry Level", juce::dontSendNotification);
     dryLabel.setJustificationType(juce::Justification::centredLeft);
     dryLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
@@ -57,7 +57,7 @@ void A2StarterAudioProcessorEditor::initDryKnob() {
     dryKnob.setPopupDisplayEnabled(true, false, this);
     dryKnob.setValue(0);
 
-    dryKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 20);
+    dryKnob.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
     dryKnob.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
     dryKnob.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
     dryKnob.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
@@ -70,7 +70,7 @@ void A2StarterAudioProcessorEditor::initDryKnob() {
 }
 
 void A2StarterAudioProcessorEditor::initWetKnob() {
-    wetLabel.setText("Wet", juce::dontSendNotification);
+    wetLabel.setText("Wet Level", juce::dontSendNotification);
     wetLabel.setJustificationType(juce::Justification::centredLeft);
     wetLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
@@ -79,7 +79,7 @@ void A2StarterAudioProcessorEditor::initWetKnob() {
     wetKnob.setPopupDisplayEnabled(true, false, this);
     wetKnob.setValue(0);
 
-    wetKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 20);
+    wetKnob.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
     wetKnob.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
     wetKnob.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
     wetKnob.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
@@ -141,21 +141,21 @@ void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
 }
 
 void A2StarterAudioProcessorEditor::resized() {
-    timeIntervalLabel.setBounds(30, 60, 100, 30);
-    timeIntervalLabel.setJustificationType(juce::Justification::centred);
-    timeIntervalKnob.setBounds(140, 60, 180, 40);
+    timeIntervalLabel.setBounds(30, 60, 220, 30);
+    timeIntervalLabel.setJustificationType(juce::Justification::left);
+    timeIntervalKnob.setBounds(30, 90, 220, 40);
 
-    feedbackLabel.setBounds(360, 60, 100, 30);
-    feedbackLabel.setJustificationType(juce::Justification::centred);
-    feedbackKnob.setBounds(470, 60, 180, 40);
+    feedbackLabel.setBounds(30, 140, 220, 30);
+    feedbackLabel.setJustificationType(juce::Justification::left);
+    feedbackKnob.setBounds(30, 170, 220, 40);
 
-    dryLabel.setBounds(30, 140, 100, 30);
-    dryLabel.setJustificationType(juce::Justification::centred);
-    dryKnob.setBounds(140, 140, 180, 40);
+    dryLabel.setBounds(360, 60, 220, 30);
+    dryLabel.setJustificationType(juce::Justification::left);
+    dryKnob.setBounds(360, 90, 220, 40);
 
-    wetLabel.setBounds(360, 140, 100, 30);
-    wetLabel.setJustificationType(juce::Justification::centred);
-    wetKnob.setBounds(470, 140, 180, 40);
+    wetLabel.setBounds(360, 140, 220, 30);
+    wetLabel.setJustificationType(juce::Justification::left);
+    wetKnob.setBounds(360, 170, 220, 40);
 
     zenoToggle.setBounds(30, 220, 100, 30);
 
