@@ -165,9 +165,13 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
             float offset = interval * rate; // Set to float to accommodate Zeno mode
             if (isZenoMode) {
                 float gain = offset / 2.0f;
-                for (int i = 0; i < 3; i++, offset += gain, gain /= 2) {
-                    int echoIndex = static_cast<int>(index + offset) % delayBufferLength;
-                    delayData[echoIndex] += inputSample * pow(feedback, i + 1);
+                for (int i = 0;; i++, offset += gain, gain /= 2) {
+                    int   echoIndex = static_cast<int>(index + offset) % delayBufferLength;
+                    float echo      = inputSample * pow(feedback, i + 1);
+
+                    if (std::fabs(echo) < 0.0001)
+                        break;
+                    delayData[echoIndex] += echo;
                 }
             } else {
                 int echoIndex        = static_cast<int>(index + offset) % delayBufferLength;
