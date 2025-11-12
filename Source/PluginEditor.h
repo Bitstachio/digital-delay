@@ -26,41 +26,41 @@ private:
 
     void initVolumeSlider();
 
-    //===== Time Interval Knob ======
+    //===== Time Interval Slider ======
 
     juce::Label timeIntervalLabel;
 
-    juce::Slider                                                          timeIntervalKnob;
+    juce::Slider                                                          timeIntervalSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> timeIntervalAttachment;
 
-    void initTimeIntervalKnob();
+    void initTimeIntervalSlider();
 
-    //===== Feedback Knob ======
+    //===== Feedback Slider ======
 
     juce::Label feedbackLabel;
 
-    juce::Slider                                                          feedbackKnob;
+    juce::Slider                                                          feedbackSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
 
-    void initFeedbackKnob();
+    void initFeedbackSlider();
 
-    //===== Dry Knob ======
+    //===== Dry Slider ======
 
     juce::Label dryLabel;
 
-    juce::Slider                                                          dryKnob;
+    juce::Slider                                                          drySlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dryAttachment;
 
-    void initDryKnob();
+    void initDrySlider();
 
-    //===== Wet Knob ======
+    //===== Wet Slider ======
 
     juce::Label wetLabel;
 
-    juce::Slider                                                          wetKnob;
+    juce::Slider                                                          wetSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> wetAttachment;
 
-    void initWetKnob();
+    void initWetSlider();
 
     //===== Zeno Toggle ======
 
