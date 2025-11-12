@@ -54,4 +54,6 @@ private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
     std::vector<int> delayBufferIndices;
+
+    float phase = 0;
 };

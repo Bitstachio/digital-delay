@@ -126,7 +126,17 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
     float dryLevel = apvts.getRawParameterValue("DRY")->load() / 100;
     float wetLevel = apvts.getRawParameterValue("WET")->load() / 100;
 
-    bool isZenoMode = apvts.getRawParameterValue("ZENO")->load();
+    bool isZenoMode     = apvts.getRawParameterValue("ZENO")->load();
+    bool isPingPongMode = apvts.getRawParameterValue("PING_PONG")->load();
+
+    float pingPongFreq = 100;
+
+    phase += 2.0f * juce::MathConstants<float>::pi * pingPongFreq / rate;
+    if (phase > 2.0f * juce::MathConstants<float>::pi)
+        phase -= 2.0f * juce::MathConstants<float>::pi;
+
+    float gainLeft  = 0.5f * (1.0f + std::sin(phase));
+    float gainRight = 0.5f * (1.0f - std::sin(phase));
 
     // Normalize dry/wet if > 1.0
     float mixSum = dryLevel + wetLevel;
@@ -156,7 +166,16 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
 
             // Output with dry/wet mix, clipped
             float outSample = dryLevel * inputSample + wetLevel * delayedSample;
-            channelData[i]  = juce::jlimit(-1.0f, 1.0f, outSample);
+
+            if (isPingPongMode) {
+                if (channel == 0) {
+                    outSample *= gainLeft;
+                } else if (channel == 1) {
+                    outSample *= gainRight;
+                }
+            }
+
+            channelData[i] = juce::jlimit(-1.0f, 1.0f, outSample);
 
             /* Use addition instead of replacement to support Zeno mode.
              * In Zeno mode, echoes are scheduled in the future, so multiple delayed
@@ -209,10 +228,11 @@ void A2StarterAudioProcessor::setStateInformation(const void *data, int sizeInBy
 juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::createParameterLayout() {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("TIME_INTERVAL", "Time Interval", 0.0f, 3.0f, 0));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("FEEDBACK", "Feedback", 0, 100, 0));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("DRY", "Dry", 0, 100, 0));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("WET", "Wet", 0, 100, 0));
+    // TODO: Currently using test default values; update to appropriate defaults later
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("TIME_INTERVAL", "Time Interval", 0.0f, 3.0f, 1));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("FEEDBACK", "Feedback", 0, 100, 100));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("DRY", "Dry", 0, 100, 80));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("WET", "Wet", 0, 100, 80));
     params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", false));
     params.push_back(std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping Pong", false));
 
