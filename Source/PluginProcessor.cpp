@@ -248,7 +248,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::cre
     params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", DelayParams::IS_ZENO_MODE_DEFAULT));
     params.push_back(
         std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping-Pong", DelayParams::IS_PING_PONG_DEFAULT));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+    params.push_back(std::make_unique<juce::AudioParameterInt>(
         "PING_PONG_FREQ", "Ping-Pong Frequency", DelayParams::PING_PONG_FREQ_MIN, DelayParams::PING_PONG_FREQ_MAX,
         DelayParams::PING_PONG_FREQ_DEFAULT));
 

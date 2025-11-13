@@ -21,10 +21,10 @@ struct DelayParams {
     inline static constexpr int WET_MAX     = 100;
     inline static constexpr int WET_STEP    = 1;
 
-    inline static constexpr float PING_PONG_FREQ_DEFAULT = 5.0f;
-    inline static constexpr float PING_PONG_FREQ_MIN     = 0.0f;
-    inline static constexpr float PING_PONG_FREQ_MAX     = 100.0f;
-    inline static constexpr float PING_PONG_FREQ_STEP    = 0.1f;
+    inline static constexpr int PING_PONG_FREQ_DEFAULT = 50;
+    inline static constexpr int PING_PONG_FREQ_MIN     = 0;
+    inline static constexpr int PING_PONG_FREQ_MAX     = 100;
+    inline static constexpr int PING_PONG_FREQ_STEP    = 1;
 
     inline static constexpr bool IS_ZENO_MODE_DEFAULT = false;
 
