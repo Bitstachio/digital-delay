@@ -3,7 +3,7 @@
 #include "PluginProcessor.h"
 #include <JuceHeader.h>
 
-class A2StarterAudioProcessorEditor : public juce::AudioProcessorEditor, private juce::Slider::Listener {
+class A2StarterAudioProcessorEditor : public juce::AudioProcessorEditor {
 public:
     A2StarterAudioProcessorEditor(A2StarterAudioProcessor &);
     ~A2StarterAudioProcessorEditor() override;
@@ -12,6 +12,8 @@ public:
     void resized() override;
 
 private:
+    A2StarterAudioProcessor &audioProcessor;
+
     struct ColorPalette {
         juce::Colour background  = juce::Colour(0xff1e1e1e);
         juce::Colour text        = juce::Colour(0xfff0f0f0);
@@ -20,9 +22,9 @@ private:
         juce::Colour buttonOn    = juce::Colour(0xff4aa3df);
         juce::Colour sliderTrack = juce::Colour(0xFF606080);
         juce::Colour sliderThumb = juce::Colour(0xFF6AC1FF);
-    };
+    } palette;
 
-    ColorPalette palette;
+    //===== Component Initializers =====
 
     void initSlider(juce::Component &parent, juce::Label &mainLabel, juce::Label &unitLabel, juce::Slider &slider,
                     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
@@ -30,77 +32,61 @@ private:
                     const juce::String &labelText, const juce::String &unitText, double minValue, double maxValue,
                     double step, const ColorPalette &palette);
 
-    void sliderValueChanged(juce::Slider *slider) override;
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    A2StarterAudioProcessor &audioProcessor;
+    void initToggleButton(juce::TextButton                                                      &button,
+                          std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> &attachment,
+                          const juce::String &paramId, const juce::String &labelText, const juce::Colour &offColour,
+                          const juce::Colour &onColour, const juce::Colour &textColour);
 
-    //===== Volume Slider ======
+    void initButton(juce::TextButton &button, const juce::String &labelText, const juce::Colour &offColour,
+                    const juce::Colour &onColour, const juce::Colour &textColour);
 
-    juce::Label volumeLabel;
+    //===== Delay Parameter Components ======
 
+    // Volume (*)
+    juce::Label                                                           volumeLabel;
     juce::Slider                                                          volumeSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
 
-    //===== Time Interval Slider ======
-
-    juce::Label timeIntervalLabel;
-    juce::Label timeIntervalUnitLabel;
-
+    // Time Interval
+    juce::Label                                                           timeIntervalLabel;
+    juce::Label                                                           timeIntervalUnitLabel;
     juce::Slider                                                          timeIntervalSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> timeIntervalAttachment;
 
-    //===== Feedback Slider ======
-
-    juce::Label feedbackLabel;
-    juce::Label feedbackUnitLabel;
-
+    // Feedback
+    juce::Label                                                           feedbackLabel;
+    juce::Label                                                           feedbackUnitLabel;
     juce::Slider                                                          feedbackSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
 
-    //===== Dry Slider ======
-
-    juce::Label dryLabel;
-    juce::Label dryUnitLabel;
-
+    // Dry Level
+    juce::Label                                                           dryLabel;
+    juce::Label                                                           dryUnitLabel;
     juce::Slider                                                          drySlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dryAttachment;
 
-    //===== Wet Slider ======
-
-    juce::Label wetLabel;
-    juce::Label wetUnitLabel;
-
+    // Wet Level
+    juce::Label                                                           wetLabel;
+    juce::Label                                                           wetUnitLabel;
     juce::Slider                                                          wetSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> wetAttachment;
 
-    //===== Zeno Toggle ======
-
+    // Zeno Mode
     juce::TextButton                                                      zenoToggle;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> zenoAttachment;
 
-    void initZenoToggle();
-
-    //===== Ping-Pong Toggle ======
-
+    // Ping-Pong Mode
     juce::TextButton                                                      pingPongToggle;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> pingPongAttachment;
 
-    void initPingPongToggle();
-
-    //===== Ping-Pong Frequency Slider ======
-
-    juce::Label pingPongFreqLabel;
-    juce::Label pingPongFreqUnitLabel;
-
+    // Ping-Pong Frequency
+    juce::Label                                                           pingPongFreqLabel;
+    juce::Label                                                           pingPongFreqUnitLabel;
     juce::Slider                                                          pingPongFreqSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> pingPongFreqAttachment;
 
-    //===== Clear Buffer Button ======
-
+    // Clear Buffer
     juce::TextButton clearButton;
-
-    void initClearButton();
 
     //===== Macros =====
 

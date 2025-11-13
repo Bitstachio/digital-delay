@@ -36,46 +36,35 @@ void A2StarterAudioProcessorEditor::initSlider(
     attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, paramId, slider);
 }
 
-void A2StarterAudioProcessorEditor::initZenoToggle() {
-    zenoToggle.setButtonText("Zeno Mode\n[ OFF ]");
-    zenoToggle.setClickingTogglesState(true);
-    zenoToggle.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
-    zenoToggle.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
-    zenoToggle.setColour(juce::TextButton::textColourOffId, palette.text);
-    zenoToggle.onClick = [this]() {
-        zenoToggle.setButtonText(zenoToggle.getToggleState() ? "Zeno Mode\n[ ON ]" : "Zeno Mode\n[ OFF ]");
+void A2StarterAudioProcessorEditor::initToggleButton(
+    juce::TextButton &button, std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> &attachment,
+    const juce::String &paramId, const juce::String &labelText, const juce::Colour &offColour,
+    const juce::Colour &onColour, const juce::Colour &textColour) {
+    button.setButtonText(labelText + "\n[ OFF ]");
+    button.setClickingTogglesState(true);
+    button.setColour(juce::TextButton::buttonColourId, offColour);
+    button.setColour(juce::TextButton::buttonOnColourId, onColour);
+    button.setColour(juce::TextButton::textColourOffId, textColour);
+
+    button.onClick = [this, &button, labelText]() {
+        button.setButtonText(button.getToggleState() ? labelText + "\n[ ON ]" : labelText + "\n[ OFF ]");
     };
 
-    addAndMakeVisible(&zenoToggle);
+    addAndMakeVisible(&button);
 
-    zenoAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts,
-                                                                                            "ZENO", zenoToggle);
+    attachment =
+        std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, paramId, button);
 }
 
-void A2StarterAudioProcessorEditor::initPingPongToggle() {
-    pingPongToggle.setButtonText("Ping-Pong Mode\n[ OFF ]");
-    pingPongToggle.setClickingTogglesState(true);
-    pingPongToggle.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
-    pingPongToggle.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
-    pingPongToggle.setColour(juce::TextButton::textColourOffId, palette.text);
-    pingPongToggle.onClick = [this]() {
-        pingPongToggle.setButtonText(pingPongToggle.getToggleState() ? "Ping-Pong Mode\n[ ON ]"
-                                                                     : "Ping-Pong Mode\n[ OFF ]");
-    };
+void A2StarterAudioProcessorEditor::initButton(juce::TextButton &button, const juce::String &labelText,
+                                               const juce::Colour &offColour, const juce::Colour &onColour,
+                                               const juce::Colour &textColour) {
+    button.setButtonText(labelText);
+    button.setColour(juce::TextButton::buttonColourId, offColour);
+    button.setColour(juce::TextButton::buttonOnColourId, onColour);
+    button.setColour(juce::TextButton::textColourOffId, textColour);
 
-    addAndMakeVisible(&pingPongToggle);
-
-    pingPongAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(
-        audioProcessor.apvts, "PING_PONG", pingPongToggle);
-}
-
-void A2StarterAudioProcessorEditor::initClearButton() {
-    clearButton.setButtonText("Clear Buffer");
-    clearButton.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
-    clearButton.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
-    clearButton.setColour(juce::TextButton::textColourOffId, palette.text);
-
-    addAndMakeVisible(&clearButton);
+    addAndMakeVisible(&button);
 }
 
 //===== Constructor & Destructor =====
@@ -95,9 +84,12 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     initSlider(*this, pingPongFreqLabel, pingPongFreqUnitLabel, pingPongFreqSlider, pingPongFreqAttachment,
                audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", 0.0, 100.0, 1.0, palette);
 
-    initZenoToggle();
-    initPingPongToggle();
-    initClearButton();
+    initToggleButton(zenoToggle, zenoAttachment, "ZENO", "Zeno Mode", palette.buttonOff, palette.buttonOn,
+                     palette.text);
+    initToggleButton(pingPongToggle, pingPongAttachment, "PING_PONG", "Ping-Pong Mode", palette.buttonOff,
+                     palette.buttonOn, palette.text);
+
+    initButton(clearButton, "Clear Buffer", palette.buttonOff, palette.buttonOn, palette.text);
 }
 
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
@@ -135,8 +127,4 @@ void A2StarterAudioProcessorEditor::resized() {
     pingPongToggle.setBounds(180, 220, 140, 60);
 
     clearButton.setBounds(30, 320, 610, 30);
-}
-
-void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
-    audioProcessor.volumeBoost = volumeSlider.getValue();
 }
