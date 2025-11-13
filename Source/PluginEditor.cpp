@@ -1,5 +1,6 @@
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
+#include "DelayParams.h"
 
 //===== Component Initializers =====
 
@@ -74,15 +75,18 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     setSize(670, 380);
 
     initSlider(*this, timeIntervalLabel, timeIntervalUnitLabel, timeIntervalSlider, timeIntervalAttachment,
-               audioProcessor.apvts, "TIME_INTERVAL", "Time Interval", "[ s ]", 0.0, 3.0, 0.01, palette);
+               audioProcessor.apvts, "TIME_INTERVAL", "Time Interval", "[ s ]", DelayParams::INTERVAL_MIN,
+               DelayParams::INTERVAL_MAX, DelayParams::INTERVAL_STEP, palette);
     initSlider(*this, feedbackLabel, feedbackUnitLabel, feedbackSlider, feedbackAttachment, audioProcessor.apvts,
-               "FEEDBACK", "Feedback", "[ % ]", 0.0, 100.0, 1.0, palette);
+               "FEEDBACK", "Feedback", "[ % ]", DelayParams::FEEDBACK_MIN, DelayParams::FEEDBACK_MAX,
+               DelayParams::FEEDBACK_STEP, palette);
     initSlider(*this, dryLabel, dryUnitLabel, drySlider, dryAttachment, audioProcessor.apvts, "DRY", "Dry Level",
-               "[ % ]", 0.0, 100.0, 1.0, palette);
+               "[ % ]", DelayParams::DRY_MIN, DelayParams::DRY_MAX, DelayParams::DRY_STEP, palette);
     initSlider(*this, wetLabel, wetUnitLabel, wetSlider, wetAttachment, audioProcessor.apvts, "WET", "Wet Level",
-               "[ % ]", 0.0, 100.0, 1.0, palette);
+               "[ % ]", DelayParams::WET_MIN, DelayParams::WET_MAX, DelayParams::WET_STEP, palette);
     initSlider(*this, pingPongFreqLabel, pingPongFreqUnitLabel, pingPongFreqSlider, pingPongFreqAttachment,
-               audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", 0.0, 100.0, 1.0, palette);
+               audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", DelayParams::PING_PONG_FREQ_MIN,
+               DelayParams::PING_PONG_FREQ_MAX, DelayParams::PING_PONG_FREQ_STEP, palette);
 
     initToggleButton(zenoToggle, zenoAttachment, "ZENO", "Zeno Mode", palette.buttonOff, palette.buttonOn,
                      palette.text);

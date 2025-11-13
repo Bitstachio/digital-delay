@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "DelayParams.h"
 
 //==============================================================================
 A2StarterAudioProcessor::A2StarterAudioProcessor()
@@ -228,13 +229,18 @@ void A2StarterAudioProcessor::setStateInformation(const void *data, int sizeInBy
 juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::createParameterLayout() {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    // TODO: Currently using test default values; update to appropriate defaults later
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("TIME_INTERVAL", "Time Interval", 0.0f, 3.0f, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("FEEDBACK", "Feedback", 0, 100, 100));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("DRY", "Dry", 0, 100, 80));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("WET", "Wet", 0, 100, 80));
-    params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", false));
-    params.push_back(std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping Pong", false));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("TIME_INTERVAL", "Time Interval",
+                                                                 DelayParams::INTERVAL_MIN, DelayParams::INTERVAL_MAX,
+                                                                 DelayParams::INTERVAL_DEFAULT));
+    params.push_back(std::make_unique<juce::AudioParameterInt>(
+        "FEEDBACK", "Feedback", DelayParams::FEEDBACK_MIN, DelayParams::FEEDBACK_MAX, DelayParams::FEEDBACK_DEFAULT));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("DRY", "Dry", DelayParams::DRY_MIN, DelayParams::DRY_MAX,
+                                                               DelayParams::DRY_DEFAULT));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("WET", "Wet", DelayParams::WET_MIN, DelayParams::WET_MAX,
+                                                               DelayParams::WET_DEFAULT));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", DelayParams::IS_ZENO_MODE_DEFAULT));
+    params.push_back(
+        std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping Pong", DelayParams::IS_PING_PONG_DEFAULT));
 
     return {params.begin(), params.end()};
 }
