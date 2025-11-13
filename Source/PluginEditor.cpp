@@ -8,6 +8,10 @@ void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
     timeIntervalLabel.setJustificationType(juce::Justification::centredLeft);
     timeIntervalLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
+    timeIntervalUnitLabel.setText("[ s ]", juce::dontSendNotification);
+    timeIntervalUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    timeIntervalUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
     timeIntervalSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     timeIntervalSlider.setRange(0, 3, 0.01);
     timeIntervalSlider.setPopupDisplayEnabled(true, false, this);
@@ -19,6 +23,7 @@ void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
     timeIntervalSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
 
     addAndMakeVisible(&timeIntervalLabel);
+    addAndMakeVisible(&timeIntervalUnitLabel);
     addAndMakeVisible(&timeIntervalSlider);
 
     timeIntervalAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
@@ -29,6 +34,10 @@ void A2StarterAudioProcessorEditor::initFeedbackSlider() {
     feedbackLabel.setText("Feedback", juce::dontSendNotification);
     feedbackLabel.setJustificationType(juce::Justification::centredLeft);
     feedbackLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    feedbackUnitLabel.setText("[ % ]", juce::dontSendNotification);
+    feedbackUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    feedbackUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     feedbackSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     feedbackSlider.setRange(0, 100, 1);
@@ -41,6 +50,7 @@ void A2StarterAudioProcessorEditor::initFeedbackSlider() {
     feedbackSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
 
     addAndMakeVisible(&feedbackLabel);
+    addAndMakeVisible(&feedbackUnitLabel);
     addAndMakeVisible(&feedbackSlider);
 
     feedbackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
@@ -51,6 +61,10 @@ void A2StarterAudioProcessorEditor::initDrySlider() {
     dryLabel.setText("Dry Level", juce::dontSendNotification);
     dryLabel.setJustificationType(juce::Justification::centredLeft);
     dryLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    dryUnitLabel.setText("[ % ]", juce::dontSendNotification);
+    dryUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    dryUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     drySlider.setSliderStyle(juce::Slider::LinearHorizontal);
     drySlider.setRange(0, 100, 1);
@@ -63,6 +77,7 @@ void A2StarterAudioProcessorEditor::initDrySlider() {
     drySlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
 
     addAndMakeVisible(&dryLabel);
+    addAndMakeVisible(&dryUnitLabel);
     addAndMakeVisible(&drySlider);
 
     dryAttachment =
@@ -73,6 +88,10 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
     wetLabel.setText("Wet Level", juce::dontSendNotification);
     wetLabel.setJustificationType(juce::Justification::centredLeft);
     wetLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    wetUnitLabel.setText("[ % ]", juce::dontSendNotification);
+    wetUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    wetUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     wetSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     wetSlider.setRange(0, 100, 1);
@@ -85,6 +104,7 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
     wetSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
 
     addAndMakeVisible(&wetLabel);
+    addAndMakeVisible(&wetUnitLabel);
     addAndMakeVisible(&wetSlider);
 
     wetAttachment =
@@ -142,20 +162,24 @@ void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
 
 void A2StarterAudioProcessorEditor::resized() {
     timeIntervalLabel.setBounds(30, 60, 220, 30);
+    timeIntervalUnitLabel.setBounds(250, 90, 220, 20);
     timeIntervalLabel.setJustificationType(juce::Justification::left);
-    timeIntervalSlider.setBounds(30, 90, 220, 40);
+    timeIntervalSlider.setBounds(30, 90, 220, 20);
 
     feedbackLabel.setBounds(30, 140, 220, 30);
+    feedbackUnitLabel.setBounds(250, 170, 220, 20);
     feedbackLabel.setJustificationType(juce::Justification::left);
-    feedbackSlider.setBounds(30, 170, 220, 40);
+    feedbackSlider.setBounds(30, 170, 220, 20);
 
     dryLabel.setBounds(360, 60, 220, 30);
+    dryUnitLabel.setBounds(580, 90, 220, 20);
     dryLabel.setJustificationType(juce::Justification::left);
-    drySlider.setBounds(360, 90, 220, 40);
+    drySlider.setBounds(360, 90, 220, 20);
 
     wetLabel.setBounds(360, 140, 220, 30);
+    wetUnitLabel.setBounds(580, 170, 220, 20);
     wetLabel.setJustificationType(juce::Justification::left);
-    wetSlider.setBounds(360, 170, 220, 40);
+    wetSlider.setBounds(360, 170, 220, 20);
 
     zenoToggle.setBounds(30, 220, 100, 30);
 

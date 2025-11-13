@@ -29,6 +29,7 @@ private:
     //===== Time Interval Slider ======
 
     juce::Label timeIntervalLabel;
+    juce::Label timeIntervalUnitLabel;
 
     juce::Slider                                                          timeIntervalSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> timeIntervalAttachment;
@@ -38,6 +39,7 @@ private:
     //===== Feedback Slider ======
 
     juce::Label feedbackLabel;
+    juce::Label feedbackUnitLabel;
 
     juce::Slider                                                          feedbackSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
@@ -47,6 +49,7 @@ private:
     //===== Dry Slider ======
 
     juce::Label dryLabel;
+    juce::Label dryUnitLabel;
 
     juce::Slider                                                          drySlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dryAttachment;
@@ -56,6 +59,7 @@ private:
     //===== Wet Slider ======
 
     juce::Label wetLabel;
+    juce::Label wetUnitLabel;
 
     juce::Slider                                                          wetSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> wetAttachment;
