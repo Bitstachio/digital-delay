@@ -8,14 +8,14 @@ void A2StarterAudioProcessorEditor::initSlider(
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
     juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId, const juce::String &labelText,
     const juce::String &unitText, double minValue, double maxValue, double step,
-    const A2StarterAudioProcessorEditor::ColorPalette &colors) {
+    const A2StarterAudioProcessorEditor::ColorPalette &palette) {
     mainLabel.setText(labelText, juce::dontSendNotification);
     mainLabel.setJustificationType(juce::Justification::centredLeft);
-    mainLabel.setColour(juce::Label::textColourId, colors.text);
+    mainLabel.setColour(juce::Label::textColourId, palette.text);
 
     unitLabel.setText(unitText, juce::dontSendNotification);
     unitLabel.setJustificationType(juce::Justification::centredRight);
-    unitLabel.setColour(juce::Label::textColourId, colors.text);
+    unitLabel.setColour(juce::Label::textColourId, palette.text);
 
     slider.setSliderStyle(juce::Slider::LinearHorizontal);
     slider.setRange(minValue, maxValue, step);
@@ -23,11 +23,11 @@ void A2StarterAudioProcessorEditor::initSlider(
     slider.setValue(minValue);
 
     slider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    slider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    slider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    slider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    slider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    slider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
+    slider.setColour(juce::Slider::trackColourId, palette.sliderTrack);
+    slider.setColour(juce::Slider::thumbColourId, palette.sliderThumb);
+    slider.setColour(juce::Slider::textBoxTextColourId, palette.text);
+    slider.setColour(juce::Slider::textBoxBackgroundColourId, palette.background);
+    slider.setColour(juce::Slider::textBoxOutlineColourId, palette.accent);
 
     parent.addAndMakeVisible(mainLabel);
     parent.addAndMakeVisible(unitLabel);
@@ -39,9 +39,9 @@ void A2StarterAudioProcessorEditor::initSlider(
 void A2StarterAudioProcessorEditor::initZenoToggle() {
     zenoToggle.setButtonText("Zeno Mode\n[ OFF ]");
     zenoToggle.setClickingTogglesState(true);
-    zenoToggle.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
-    zenoToggle.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
-    zenoToggle.setColour(juce::TextButton::textColourOffId, colors.text);
+    zenoToggle.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
+    zenoToggle.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
+    zenoToggle.setColour(juce::TextButton::textColourOffId, palette.text);
     zenoToggle.onClick = [this]() {
         zenoToggle.setButtonText(zenoToggle.getToggleState() ? "Zeno Mode\n[ ON ]" : "Zeno Mode\n[ OFF ]");
     };
@@ -55,9 +55,9 @@ void A2StarterAudioProcessorEditor::initZenoToggle() {
 void A2StarterAudioProcessorEditor::initPingPongToggle() {
     pingPongToggle.setButtonText("Ping-Pong Mode\n[ OFF ]");
     pingPongToggle.setClickingTogglesState(true);
-    pingPongToggle.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
-    pingPongToggle.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
-    pingPongToggle.setColour(juce::TextButton::textColourOffId, colors.text);
+    pingPongToggle.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
+    pingPongToggle.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
+    pingPongToggle.setColour(juce::TextButton::textColourOffId, palette.text);
     pingPongToggle.onClick = [this]() {
         pingPongToggle.setButtonText(pingPongToggle.getToggleState() ? "Ping-Pong Mode\n[ ON ]"
                                                                      : "Ping-Pong Mode\n[ OFF ]");
@@ -71,9 +71,9 @@ void A2StarterAudioProcessorEditor::initPingPongToggle() {
 
 void A2StarterAudioProcessorEditor::initClearButton() {
     clearButton.setButtonText("Clear Buffer");
-    clearButton.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
-    clearButton.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
-    clearButton.setColour(juce::TextButton::textColourOffId, colors.text);
+    clearButton.setColour(juce::TextButton::buttonColourId, palette.buttonOff);
+    clearButton.setColour(juce::TextButton::buttonOnColourId, palette.buttonOn);
+    clearButton.setColour(juce::TextButton::textColourOffId, palette.text);
 
     addAndMakeVisible(&clearButton);
 }
@@ -85,15 +85,15 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     setSize(670, 380);
 
     initSlider(*this, timeIntervalLabel, timeIntervalUnitLabel, timeIntervalSlider, timeIntervalAttachment,
-               audioProcessor.apvts, "TIME_INTERVAL", "Time Interval", "[ s ]", 0.0, 3.0, 0.01, colors);
+               audioProcessor.apvts, "TIME_INTERVAL", "Time Interval", "[ s ]", 0.0, 3.0, 0.01, palette);
     initSlider(*this, feedbackLabel, feedbackUnitLabel, feedbackSlider, feedbackAttachment, audioProcessor.apvts,
-               "FEEDBACK", "Feedback", "[ % ]", 0.0, 100.0, 1.0, colors);
+               "FEEDBACK", "Feedback", "[ % ]", 0.0, 100.0, 1.0, palette);
     initSlider(*this, dryLabel, dryUnitLabel, drySlider, dryAttachment, audioProcessor.apvts, "DRY", "Dry Level",
-               "[ % ]", 0.0, 100.0, 1.0, colors);
+               "[ % ]", 0.0, 100.0, 1.0, palette);
     initSlider(*this, wetLabel, wetUnitLabel, wetSlider, wetAttachment, audioProcessor.apvts, "WET", "Wet Level",
-               "[ % ]", 0.0, 100.0, 1.0, colors);
+               "[ % ]", 0.0, 100.0, 1.0, palette);
     initSlider(*this, pingPongFreqLabel, pingPongFreqUnitLabel, pingPongFreqSlider, pingPongFreqAttachment,
-               audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", 0.0, 100.0, 1.0, colors);
+               audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", 0.0, 100.0, 1.0, palette);
 
     initZenoToggle();
     initPingPongToggle();
@@ -103,8 +103,8 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
 
 void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
-    g.fillAll(colors.background);
-    g.setColour(colors.text);
+    g.fillAll(palette.background);
+    g.setColour(palette.text);
     g.setFont(24.0f);
     g.drawFittedText("Digital Delay Plugin", 0, 10, getWidth(), 30, juce::Justification::centred, 1);
 }

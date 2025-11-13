@@ -22,13 +22,13 @@ private:
         juce::Colour sliderThumb = juce::Colour(0xFF6AC1FF);
     };
 
-    ColorPalette colors;
+    ColorPalette palette;
 
     void initSlider(juce::Component &parent, juce::Label &mainLabel, juce::Label &unitLabel, juce::Slider &slider,
                     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
                     juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId,
                     const juce::String &labelText, const juce::String &unitText, double minValue, double maxValue,
-                    double step, const ColorPalette &colors);
+                    double step, const ColorPalette &palette);
 
     void sliderValueChanged(juce::Slider *slider) override;
     // This reference is provided as a quick way for your editor to
