@@ -171,11 +171,20 @@ void A2StarterAudioProcessorEditor::initPingPongToggle() {
         audioProcessor.apvts, "PING_PONG", pingPongToggle);
 }
 
+void A2StarterAudioProcessorEditor::initClearButton() {
+    clearButton.setButtonText("Clear Buffer");
+    clearButton.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
+    clearButton.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
+    clearButton.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+
+    addAndMakeVisible(&clearButton);
+}
+
 //===== Constructor & Destructor =====
 
 A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p) {
-    setSize(670, 400);
+    setSize(670, 380);
 
     initTimeIntervalSlider();
     initFeedbackSlider();
@@ -184,6 +193,7 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     initZenoToggle();
     initPingPongToggle();
     initPingPongFreqSlider();
+    initClearButton();
 }
 
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
@@ -222,8 +232,8 @@ void A2StarterAudioProcessorEditor::resized() {
     pingPongFreqSlider.setBounds(350, 250, 250, 20);
 
     zenoToggle.setBounds(30, 220, 140, 60);
-
     pingPongToggle.setBounds(180, 220, 140, 60);
+    clearButton.setBounds(30, 320, 610, 30);
 }
 
 void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {

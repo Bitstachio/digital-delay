@@ -90,6 +90,12 @@ private:
 
     void initPingPongFreqSlider();
 
+    //===== Clear Buffer Button ======
+
+    juce::TextButton clearButton;
+
+    void initClearButton();
+
     //===== Macros =====
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessorEditor)
