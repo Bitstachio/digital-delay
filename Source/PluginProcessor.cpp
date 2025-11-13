@@ -226,6 +226,10 @@ void A2StarterAudioProcessor::setStateInformation(const void *data, int sizeInBy
     // call.
 }
 
+void A2StarterAudioProcessor::clearDelayBuffer() {
+    delayBuffer.clear();
+}
+
 juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::createParameterLayout() {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 

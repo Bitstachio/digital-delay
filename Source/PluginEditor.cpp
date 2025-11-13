@@ -20,7 +20,7 @@ void A2StarterAudioProcessorEditor::initSlider(
 
     slider.setSliderStyle(juce::Slider::LinearHorizontal);
     slider.setRange(minValue, maxValue, step);
-    slider.setPopupDisplayEnabled(true, false, nullptr);
+    slider.setPopupDisplayEnabled(false, false, nullptr);
     slider.setValue(minValue);
 
     slider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
@@ -59,11 +59,14 @@ void A2StarterAudioProcessorEditor::initToggleButton(
 
 void A2StarterAudioProcessorEditor::initButton(juce::TextButton &button, const juce::String &labelText,
                                                const juce::Colour &offColour, const juce::Colour &onColour,
-                                               const juce::Colour &textColour) {
+                                               const juce::Colour &textColour, std::function<void()> onClickHandler) {
     button.setButtonText(labelText);
     button.setColour(juce::TextButton::buttonColourId, offColour);
     button.setColour(juce::TextButton::buttonOnColourId, onColour);
     button.setColour(juce::TextButton::textColourOffId, textColour);
+
+    if (onClickHandler)
+        button.onClick = std::move(onClickHandler);
 
     addAndMakeVisible(&button);
 }
@@ -93,7 +96,8 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     initToggleButton(pingPongToggle, pingPongAttachment, "PING_PONG", "Ping-Pong Mode", palette.buttonOff,
                      palette.buttonOn, palette.text);
 
-    initButton(clearButton, "Clear Buffer", palette.buttonOff, palette.buttonOn, palette.text);
+    initButton(clearButton, "Clear Buffer", palette.buttonOff, palette.buttonOn, palette.text,
+               [this]() { audioProcessor.clearDelayBuffer(); });
 }
 
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}

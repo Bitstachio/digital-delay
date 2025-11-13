@@ -38,7 +38,7 @@ private:
                           const juce::Colour &onColour, const juce::Colour &textColour);
 
     void initButton(juce::TextButton &button, const juce::String &labelText, const juce::Colour &offColour,
-                    const juce::Colour &onColour, const juce::Colour &textColour);
+                    const juce::Colour &onColour, const juce::Colour &textColour, std::function<void()> onClickHandler);
 
     //===== Delay Parameter Components ======
 

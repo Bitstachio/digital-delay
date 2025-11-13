@@ -44,6 +44,8 @@ public:
     void getStateInformation(juce::MemoryBlock &destData) override;
     void setStateInformation(const void *data, int sizeInBytes) override;
 
+    void clearDelayBuffer();
+
 private:
     float                    rate;
     juce::AudioBuffer<float> delayBuffer;
