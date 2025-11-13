@@ -80,6 +80,16 @@ private:
 
     void initPingPongToggle();
 
+    //===== Ping-Pong Frequency Slider ======
+
+    juce::Label pingPongFreqLabel;
+    juce::Label pingPongFreqUnitLabel;
+
+    juce::Slider                                                          pingPongFreqSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> pingPongFreqAttachment;
+
+    void initPingPongFreqSlider();
+
     //===== Macros =====
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(A2StarterAudioProcessorEditor)

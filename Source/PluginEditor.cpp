@@ -111,6 +111,33 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
         std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "WET", wetSlider);
 }
 
+void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
+    pingPongFreqLabel.setText("Ping-Pong Frequency", juce::dontSendNotification);
+    pingPongFreqLabel.setJustificationType(juce::Justification::centredLeft);
+    pingPongFreqLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    pingPongFreqUnitLabel.setText("[ Hz ]", juce::dontSendNotification);
+    pingPongFreqUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    pingPongFreqUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    pingPongFreqSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    pingPongFreqSlider.setRange(0, 100, 1);
+    pingPongFreqSlider.setPopupDisplayEnabled(true, false, this);
+    pingPongFreqSlider.setValue(0);
+
+    pingPongFreqSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+
+    addAndMakeVisible(&pingPongFreqLabel);
+    addAndMakeVisible(&pingPongFreqUnitLabel);
+    addAndMakeVisible(&pingPongFreqSlider);
+
+    pingPongFreqAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.apvts, "PING_PONG_FREQ", pingPongFreqSlider);
+}
+
 void A2StarterAudioProcessorEditor::initZenoToggle() {
     zenoToggle.setButtonText("Zeno Mode\n[ OFF ]");
     zenoToggle.setClickingTogglesState(true);
@@ -156,6 +183,7 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     initWetSlider();
     initZenoToggle();
     initPingPongToggle();
+    initPingPongFreqSlider();
 }
 
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
@@ -188,9 +216,14 @@ void A2StarterAudioProcessorEditor::resized() {
     wetLabel.setJustificationType(juce::Justification::left);
     wetSlider.setBounds(360, 170, 220, 20);
 
-    zenoToggle.setBounds(30, 240, 150, 60);
+    pingPongFreqLabel.setBounds(360, 220, 220, 30);
+    pingPongFreqUnitLabel.setBounds(580, 250, 220, 20);
+    pingPongFreqLabel.setJustificationType(juce::Justification::left);
+    pingPongFreqSlider.setBounds(360, 250, 220, 20);
 
-    pingPongToggle.setBounds(195, 240, 150, 60);
+    zenoToggle.setBounds(30, 220, 150, 60);
+
+    pingPongToggle.setBounds(195, 220, 150, 60);
 }
 
 void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
