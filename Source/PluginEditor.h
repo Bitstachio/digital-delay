@@ -68,14 +68,14 @@ private:
 
     //===== Zeno Toggle ======
 
-    juce::ToggleButton                                                    zenoToggle;
+    juce::TextButton                                                      zenoToggle;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> zenoAttachment;
 
     void initZenoToggle();
 
-    //===== Ping Pong Toggle ======
+    //===== Ping-Pong Toggle ======
 
-    juce::ToggleButton                                                    pingPongToggle;
+    juce::TextButton                                                      pingPongToggle;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> pingPongAttachment;
 
     void initPingPongToggle();

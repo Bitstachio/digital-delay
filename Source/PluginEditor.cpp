@@ -112,11 +112,14 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
 }
 
 void A2StarterAudioProcessorEditor::initZenoToggle() {
-    zenoToggle.setButtonText("Zeno");
+    zenoToggle.setButtonText("Zeno Mode\n[ OFF ]");
     zenoToggle.setClickingTogglesState(true);
     zenoToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
     zenoToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
     zenoToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+    zenoToggle.onClick = [this]() {
+        zenoToggle.setButtonText(zenoToggle.getToggleState() ? "Zeno Mode\n[ ON ]" : "Zeno Mode\n[ OFF ]");
+    };
 
     addAndMakeVisible(&zenoToggle);
 
@@ -125,11 +128,15 @@ void A2StarterAudioProcessorEditor::initZenoToggle() {
 }
 
 void A2StarterAudioProcessorEditor::initPingPongToggle() {
-    pingPongToggle.setButtonText("Ping Pong");
+    pingPongToggle.setButtonText("Ping-Pong Mode\n[ OFF ]");
     pingPongToggle.setClickingTogglesState(true);
     pingPongToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
     pingPongToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
     pingPongToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+    pingPongToggle.onClick = [this]() {
+        pingPongToggle.setButtonText(pingPongToggle.getToggleState() ? "Ping-Pong Mode\n[ ON ]"
+                                                                     : "Ping-Pong Mode\n[ OFF ]");
+    };
 
     addAndMakeVisible(&pingPongToggle);
 
@@ -181,9 +188,9 @@ void A2StarterAudioProcessorEditor::resized() {
     wetLabel.setJustificationType(juce::Justification::left);
     wetSlider.setBounds(360, 170, 220, 20);
 
-    zenoToggle.setBounds(30, 220, 100, 30);
+    zenoToggle.setBounds(30, 240, 150, 60);
 
-    pingPongToggle.setBounds(360, 220, 100, 30);
+    pingPongToggle.setBounds(195, 240, 150, 60);
 }
 
 void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
