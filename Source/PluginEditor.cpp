@@ -207,32 +207,29 @@ void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
 
 void A2StarterAudioProcessorEditor::resized() {
     timeIntervalLabel.setBounds(30, 60, 250, 30);
-    timeIntervalUnitLabel.setBounds(280, 90, 40, 20);
-    timeIntervalLabel.setJustificationType(juce::Justification::left);
     timeIntervalSlider.setBounds(30, 90, 250, 20);
+    timeIntervalUnitLabel.setBounds(280, 90, 40, 20);
 
     feedbackLabel.setBounds(30, 140, 250, 30);
-    feedbackUnitLabel.setBounds(280, 170, 40, 20);
-    feedbackLabel.setJustificationType(juce::Justification::left);
     feedbackSlider.setBounds(30, 170, 250, 20);
+    feedbackUnitLabel.setBounds(280, 170, 40, 20);
 
     dryLabel.setBounds(350, 60, 250, 30);
-    dryUnitLabel.setBounds(600, 90, 40, 20);
-    dryLabel.setJustificationType(juce::Justification::left);
     drySlider.setBounds(350, 90, 250, 20);
+    dryUnitLabel.setBounds(600, 90, 40, 20);
 
     wetLabel.setBounds(350, 140, 250, 30);
-    wetUnitLabel.setBounds(600, 170, 40, 20);
-    wetLabel.setJustificationType(juce::Justification::left);
     wetSlider.setBounds(350, 170, 250, 20);
+    wetUnitLabel.setBounds(600, 170, 40, 20);
 
     pingPongFreqLabel.setBounds(350, 220, 250, 30);
-    pingPongFreqUnitLabel.setBounds(600, 250, 40, 20);
-    pingPongFreqLabel.setJustificationType(juce::Justification::left);
     pingPongFreqSlider.setBounds(350, 250, 250, 20);
+    pingPongFreqUnitLabel.setBounds(600, 250, 40, 20);
 
     zenoToggle.setBounds(30, 220, 140, 60);
+
     pingPongToggle.setBounds(180, 220, 140, 60);
+
     clearButton.setBounds(30, 320, 610, 30);
 }
 
