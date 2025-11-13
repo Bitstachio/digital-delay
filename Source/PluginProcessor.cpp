@@ -122,15 +122,14 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear(i, 0, numSamples);
 
-    float interval = apvts.getRawParameterValue("TIME_INTERVAL")->load();
-    float feedback = apvts.getRawParameterValue("FEEDBACK")->load() / 100;
-    float dryLevel = apvts.getRawParameterValue("DRY")->load() / 100;
-    float wetLevel = apvts.getRawParameterValue("WET")->load() / 100;
+    float interval     = apvts.getRawParameterValue("TIME_INTERVAL")->load();
+    float feedback     = apvts.getRawParameterValue("FEEDBACK")->load() / 100;
+    float dryLevel     = apvts.getRawParameterValue("DRY")->load() / 100;
+    float wetLevel     = apvts.getRawParameterValue("WET")->load() / 100;
+    float pingPongFreq = apvts.getRawParameterValue("PING_PONG_FREQ")->load();
 
     bool isZenoMode     = apvts.getRawParameterValue("ZENO")->load();
     bool isPingPongMode = apvts.getRawParameterValue("PING_PONG")->load();
-
-    float pingPongFreq = 100;
 
     phase += 2.0f * juce::MathConstants<float>::pi * pingPongFreq / rate;
     if (phase > 2.0f * juce::MathConstants<float>::pi)
@@ -248,7 +247,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout A2StarterAudioProcessor::cre
                                                                DelayParams::WET_DEFAULT));
     params.push_back(std::make_unique<juce::AudioParameterBool>("ZENO", "Zeno", DelayParams::IS_ZENO_MODE_DEFAULT));
     params.push_back(
-        std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping Pong", DelayParams::IS_PING_PONG_DEFAULT));
+        std::make_unique<juce::AudioParameterBool>("PING_PONG", "Ping-Pong", DelayParams::IS_PING_PONG_DEFAULT));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "PING_PONG_FREQ", "Ping-Pong Frequency", DelayParams::PING_PONG_FREQ_MIN, DelayParams::PING_PONG_FREQ_MAX,
+        DelayParams::PING_PONG_FREQ_DEFAULT));
 
     return {params.begin(), params.end()};
 }

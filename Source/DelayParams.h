@@ -23,7 +23,7 @@ struct DelayParams {
 
     inline static constexpr float PING_PONG_FREQ_DEFAULT = 5.0f;
     inline static constexpr float PING_PONG_FREQ_MIN     = 0.0f;
-    inline static constexpr float PING_PONG_FREQ_MAX     = 10.0f;
+    inline static constexpr float PING_PONG_FREQ_MAX     = 100.0f;
     inline static constexpr float PING_PONG_FREQ_STEP    = 0.1f;
 
     inline static constexpr bool IS_ZENO_MODE_DEFAULT = false;
