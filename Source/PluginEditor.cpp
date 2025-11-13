@@ -3,149 +3,37 @@
 
 //===== Component Initializers =====
 
-void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
-    timeIntervalLabel.setText("Time Interval", juce::dontSendNotification);
-    timeIntervalLabel.setJustificationType(juce::Justification::centredLeft);
-    timeIntervalLabel.setColour(juce::Label::textColourId, colors.text);
+void A2StarterAudioProcessorEditor::initSlider(
+    juce::Component &parent, juce::Label &mainLabel, juce::Label &unitLabel, juce::Slider &slider,
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
+    juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId, const juce::String &labelText,
+    const juce::String &unitText, double minValue, double maxValue, double step,
+    const A2StarterAudioProcessorEditor::ColorPalette &colors) {
+    mainLabel.setText(labelText, juce::dontSendNotification);
+    mainLabel.setJustificationType(juce::Justification::centredLeft);
+    mainLabel.setColour(juce::Label::textColourId, colors.text);
 
-    timeIntervalUnitLabel.setText("[ s ]", juce::dontSendNotification);
-    timeIntervalUnitLabel.setJustificationType(juce::Justification::centredRight);
-    timeIntervalUnitLabel.setColour(juce::Label::textColourId, colors.text);
+    unitLabel.setText(unitText, juce::dontSendNotification);
+    unitLabel.setJustificationType(juce::Justification::centredRight);
+    unitLabel.setColour(juce::Label::textColourId, colors.text);
 
-    timeIntervalSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    timeIntervalSlider.setRange(0, 3, 0.01);
-    timeIntervalSlider.setPopupDisplayEnabled(true, false, this);
-    timeIntervalSlider.setValue(0);
+    slider.setSliderStyle(juce::Slider::LinearHorizontal);
+    slider.setRange(minValue, maxValue, step);
+    slider.setPopupDisplayEnabled(true, false, nullptr);
+    slider.setValue(minValue);
 
-    timeIntervalSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    timeIntervalSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    timeIntervalSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    timeIntervalSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    timeIntervalSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    timeIntervalSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
+    slider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
+    slider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    slider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    slider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    slider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    slider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
-    addAndMakeVisible(&timeIntervalLabel);
-    addAndMakeVisible(&timeIntervalUnitLabel);
-    addAndMakeVisible(&timeIntervalSlider);
+    parent.addAndMakeVisible(mainLabel);
+    parent.addAndMakeVisible(unitLabel);
+    parent.addAndMakeVisible(slider);
 
-    timeIntervalAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
-        audioProcessor.apvts, "TIME_INTERVAL", timeIntervalSlider);
-}
-
-void A2StarterAudioProcessorEditor::initFeedbackSlider() {
-    feedbackLabel.setText("Feedback", juce::dontSendNotification);
-    feedbackLabel.setJustificationType(juce::Justification::centredLeft);
-    feedbackLabel.setColour(juce::Label::textColourId, colors.text);
-
-    feedbackUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    feedbackUnitLabel.setJustificationType(juce::Justification::centredRight);
-    feedbackUnitLabel.setColour(juce::Label::textColourId, colors.text);
-
-    feedbackSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    feedbackSlider.setRange(0, 100, 1);
-    feedbackSlider.setPopupDisplayEnabled(true, false, this);
-    feedbackSlider.setValue(0);
-
-    feedbackSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    feedbackSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    feedbackSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    feedbackSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    feedbackSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    feedbackSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
-
-    addAndMakeVisible(&feedbackLabel);
-    addAndMakeVisible(&feedbackUnitLabel);
-    addAndMakeVisible(&feedbackSlider);
-
-    feedbackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
-        audioProcessor.apvts, "FEEDBACK", feedbackSlider);
-}
-
-void A2StarterAudioProcessorEditor::initDrySlider() {
-    dryLabel.setText("Dry Level", juce::dontSendNotification);
-    dryLabel.setJustificationType(juce::Justification::centredLeft);
-    dryLabel.setColour(juce::Label::textColourId, colors.text);
-
-    dryUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    dryUnitLabel.setJustificationType(juce::Justification::centredRight);
-    dryUnitLabel.setColour(juce::Label::textColourId, colors.text);
-
-    drySlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    drySlider.setRange(0, 100, 1);
-    drySlider.setPopupDisplayEnabled(true, false, this);
-    drySlider.setValue(0);
-
-    drySlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    drySlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    drySlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    drySlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    drySlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    drySlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
-
-    addAndMakeVisible(&dryLabel);
-    addAndMakeVisible(&dryUnitLabel);
-    addAndMakeVisible(&drySlider);
-
-    dryAttachment =
-        std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "DRY", drySlider);
-}
-
-void A2StarterAudioProcessorEditor::initWetSlider() {
-    wetLabel.setText("Wet Level", juce::dontSendNotification);
-    wetLabel.setJustificationType(juce::Justification::centredLeft);
-    wetLabel.setColour(juce::Label::textColourId, colors.text);
-
-    wetUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    wetUnitLabel.setJustificationType(juce::Justification::centredRight);
-    wetUnitLabel.setColour(juce::Label::textColourId, colors.text);
-
-    wetSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    wetSlider.setRange(0, 100, 1);
-    wetSlider.setPopupDisplayEnabled(true, false, this);
-    wetSlider.setValue(0);
-
-    wetSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    wetSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    wetSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    wetSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    wetSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    wetSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
-
-    addAndMakeVisible(&wetLabel);
-    addAndMakeVisible(&wetUnitLabel);
-    addAndMakeVisible(&wetSlider);
-
-    wetAttachment =
-        std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "WET", wetSlider);
-}
-
-void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
-    pingPongFreqLabel.setText("Ping-Pong Frequency", juce::dontSendNotification);
-    pingPongFreqLabel.setJustificationType(juce::Justification::centredLeft);
-    pingPongFreqLabel.setColour(juce::Label::textColourId, colors.text);
-
-    pingPongFreqUnitLabel.setText("[ Hz ]", juce::dontSendNotification);
-    pingPongFreqUnitLabel.setJustificationType(juce::Justification::centredRight);
-    pingPongFreqUnitLabel.setColour(juce::Label::textColourId, colors.text);
-
-    pingPongFreqSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    pingPongFreqSlider.setRange(0, 100, 1);
-    pingPongFreqSlider.setPopupDisplayEnabled(true, false, this);
-    pingPongFreqSlider.setValue(0);
-
-    pingPongFreqSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    pingPongFreqSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
-    pingPongFreqSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
-
-    addAndMakeVisible(&pingPongFreqLabel);
-    addAndMakeVisible(&pingPongFreqUnitLabel);
-    addAndMakeVisible(&pingPongFreqSlider);
-
-    pingPongFreqAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
-        audioProcessor.apvts, "PING_PONG_FREQ", pingPongFreqSlider);
+    attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, paramId, slider);
 }
 
 void A2StarterAudioProcessorEditor::initZenoToggle() {
@@ -196,13 +84,19 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
     : AudioProcessorEditor(&p), audioProcessor(p) {
     setSize(670, 380);
 
-    initTimeIntervalSlider();
-    initFeedbackSlider();
-    initDrySlider();
-    initWetSlider();
+    initSlider(*this, timeIntervalLabel, timeIntervalUnitLabel, timeIntervalSlider, timeIntervalAttachment,
+               audioProcessor.apvts, "TIME_INTERVAL", "Time Interval", "[ s ]", 0.0, 3.0, 0.01, colors);
+    initSlider(*this, feedbackLabel, feedbackUnitLabel, feedbackSlider, feedbackAttachment, audioProcessor.apvts,
+               "FEEDBACK", "Feedback", "[ % ]", 0.0, 100.0, 1.0, colors);
+    initSlider(*this, dryLabel, dryUnitLabel, drySlider, dryAttachment, audioProcessor.apvts, "DRY", "Dry Level",
+               "[ % ]", 0.0, 100.0, 1.0, colors);
+    initSlider(*this, wetLabel, wetUnitLabel, wetSlider, wetAttachment, audioProcessor.apvts, "WET", "Wet Level",
+               "[ % ]", 0.0, 100.0, 1.0, colors);
+    initSlider(*this, pingPongFreqLabel, pingPongFreqUnitLabel, pingPongFreqSlider, pingPongFreqAttachment,
+               audioProcessor.apvts, "PING_PONG_FREQ", "Ping-Pong Frequency", "[ Hz ]", 0.0, 100.0, 1.0, colors);
+
     initZenoToggle();
     initPingPongToggle();
-    initPingPongFreqSlider();
     initClearButton();
 }
 

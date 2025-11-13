@@ -24,6 +24,12 @@ private:
 
     ColorPalette colors;
 
+    void initSlider(juce::Component &parent, juce::Label &mainLabel, juce::Label &unitLabel, juce::Slider &slider,
+                    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
+                    juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId,
+                    const juce::String &labelText, const juce::String &unitText, double minValue, double maxValue,
+                    double step, const ColorPalette &colors);
+
     void sliderValueChanged(juce::Slider *slider) override;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -36,8 +42,6 @@ private:
     juce::Slider                                                          volumeSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
 
-    void initVolumeSlider();
-
     //===== Time Interval Slider ======
 
     juce::Label timeIntervalLabel;
@@ -45,8 +49,6 @@ private:
 
     juce::Slider                                                          timeIntervalSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> timeIntervalAttachment;
-
-    void initTimeIntervalSlider();
 
     //===== Feedback Slider ======
 
@@ -56,8 +58,6 @@ private:
     juce::Slider                                                          feedbackSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
 
-    void initFeedbackSlider();
-
     //===== Dry Slider ======
 
     juce::Label dryLabel;
@@ -66,8 +66,6 @@ private:
     juce::Slider                                                          drySlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dryAttachment;
 
-    void initDrySlider();
-
     //===== Wet Slider ======
 
     juce::Label wetLabel;
@@ -75,8 +73,6 @@ private:
 
     juce::Slider                                                          wetSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> wetAttachment;
-
-    void initWetSlider();
 
     //===== Zeno Toggle ======
 
@@ -99,8 +95,6 @@ private:
 
     juce::Slider                                                          pingPongFreqSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> pingPongFreqAttachment;
-
-    void initPingPongFreqSlider();
 
     //===== Clear Buffer Button ======
 
