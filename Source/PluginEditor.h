@@ -12,6 +12,18 @@ public:
     void resized() override;
 
 private:
+    struct ColorPalette {
+        juce::Colour background  = juce::Colour(0xff1e1e1e);
+        juce::Colour text        = juce::Colour(0xfff0f0f0);
+        juce::Colour accent      = juce::Colour(0xff4aa3df);
+        juce::Colour buttonOff   = juce::Colour(0xff3a3a3a);
+        juce::Colour buttonOn    = juce::Colour(0xff4aa3df);
+        juce::Colour sliderTrack = juce::Colour(0xFF606080);
+        juce::Colour sliderThumb = juce::Colour(0xFF6AC1FF);
+    };
+
+    ColorPalette colors;
+
     void sliderValueChanged(juce::Slider *slider) override;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

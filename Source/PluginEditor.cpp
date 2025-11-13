@@ -6,11 +6,11 @@
 void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
     timeIntervalLabel.setText("Time Interval", juce::dontSendNotification);
     timeIntervalLabel.setJustificationType(juce::Justification::centredLeft);
-    timeIntervalLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    timeIntervalLabel.setColour(juce::Label::textColourId, colors.text);
 
     timeIntervalUnitLabel.setText("[ s ]", juce::dontSendNotification);
     timeIntervalUnitLabel.setJustificationType(juce::Justification::centredRight);
-    timeIntervalUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    timeIntervalUnitLabel.setColour(juce::Label::textColourId, colors.text);
 
     timeIntervalSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     timeIntervalSlider.setRange(0, 3, 0.01);
@@ -18,9 +18,11 @@ void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
     timeIntervalSlider.setValue(0);
 
     timeIntervalSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    timeIntervalSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
-    timeIntervalSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
-    timeIntervalSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+    timeIntervalSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    timeIntervalSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    timeIntervalSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    timeIntervalSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    timeIntervalSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
     addAndMakeVisible(&timeIntervalLabel);
     addAndMakeVisible(&timeIntervalUnitLabel);
@@ -33,11 +35,11 @@ void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
 void A2StarterAudioProcessorEditor::initFeedbackSlider() {
     feedbackLabel.setText("Feedback", juce::dontSendNotification);
     feedbackLabel.setJustificationType(juce::Justification::centredLeft);
-    feedbackLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    feedbackLabel.setColour(juce::Label::textColourId, colors.text);
 
     feedbackUnitLabel.setText("[ % ]", juce::dontSendNotification);
     feedbackUnitLabel.setJustificationType(juce::Justification::centredRight);
-    feedbackUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    feedbackUnitLabel.setColour(juce::Label::textColourId, colors.text);
 
     feedbackSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     feedbackSlider.setRange(0, 100, 1);
@@ -45,9 +47,11 @@ void A2StarterAudioProcessorEditor::initFeedbackSlider() {
     feedbackSlider.setValue(0);
 
     feedbackSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    feedbackSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
-    feedbackSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
-    feedbackSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+    feedbackSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    feedbackSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    feedbackSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    feedbackSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    feedbackSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
     addAndMakeVisible(&feedbackLabel);
     addAndMakeVisible(&feedbackUnitLabel);
@@ -60,11 +64,11 @@ void A2StarterAudioProcessorEditor::initFeedbackSlider() {
 void A2StarterAudioProcessorEditor::initDrySlider() {
     dryLabel.setText("Dry Level", juce::dontSendNotification);
     dryLabel.setJustificationType(juce::Justification::centredLeft);
-    dryLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    dryLabel.setColour(juce::Label::textColourId, colors.text);
 
     dryUnitLabel.setText("[ % ]", juce::dontSendNotification);
     dryUnitLabel.setJustificationType(juce::Justification::centredRight);
-    dryUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    dryUnitLabel.setColour(juce::Label::textColourId, colors.text);
 
     drySlider.setSliderStyle(juce::Slider::LinearHorizontal);
     drySlider.setRange(0, 100, 1);
@@ -72,9 +76,11 @@ void A2StarterAudioProcessorEditor::initDrySlider() {
     drySlider.setValue(0);
 
     drySlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    drySlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
-    drySlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
-    drySlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+    drySlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    drySlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    drySlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    drySlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    drySlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
     addAndMakeVisible(&dryLabel);
     addAndMakeVisible(&dryUnitLabel);
@@ -87,11 +93,11 @@ void A2StarterAudioProcessorEditor::initDrySlider() {
 void A2StarterAudioProcessorEditor::initWetSlider() {
     wetLabel.setText("Wet Level", juce::dontSendNotification);
     wetLabel.setJustificationType(juce::Justification::centredLeft);
-    wetLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    wetLabel.setColour(juce::Label::textColourId, colors.text);
 
     wetUnitLabel.setText("[ % ]", juce::dontSendNotification);
     wetUnitLabel.setJustificationType(juce::Justification::centredRight);
-    wetUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    wetUnitLabel.setColour(juce::Label::textColourId, colors.text);
 
     wetSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     wetSlider.setRange(0, 100, 1);
@@ -99,9 +105,11 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
     wetSlider.setValue(0);
 
     wetSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    wetSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
-    wetSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
-    wetSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+    wetSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    wetSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    wetSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    wetSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    wetSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
     addAndMakeVisible(&wetLabel);
     addAndMakeVisible(&wetUnitLabel);
@@ -114,11 +122,11 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
 void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
     pingPongFreqLabel.setText("Ping-Pong Frequency", juce::dontSendNotification);
     pingPongFreqLabel.setJustificationType(juce::Justification::centredLeft);
-    pingPongFreqLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    pingPongFreqLabel.setColour(juce::Label::textColourId, colors.text);
 
     pingPongFreqUnitLabel.setText("[ Hz ]", juce::dontSendNotification);
     pingPongFreqUnitLabel.setJustificationType(juce::Justification::centredRight);
-    pingPongFreqUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    pingPongFreqUnitLabel.setColour(juce::Label::textColourId, colors.text);
 
     pingPongFreqSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     pingPongFreqSlider.setRange(0, 100, 1);
@@ -126,9 +134,11 @@ void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
     pingPongFreqSlider.setValue(0);
 
     pingPongFreqSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::black);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colours::white);
-    pingPongFreqSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::grey);
+    pingPongFreqSlider.setColour(juce::Slider::trackColourId, colors.sliderTrack);
+    pingPongFreqSlider.setColour(juce::Slider::thumbColourId, colors.sliderThumb);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxTextColourId, colors.text);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxBackgroundColourId, colors.background);
+    pingPongFreqSlider.setColour(juce::Slider::textBoxOutlineColourId, colors.accent);
 
     addAndMakeVisible(&pingPongFreqLabel);
     addAndMakeVisible(&pingPongFreqUnitLabel);
@@ -141,9 +151,9 @@ void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
 void A2StarterAudioProcessorEditor::initZenoToggle() {
     zenoToggle.setButtonText("Zeno Mode\n[ OFF ]");
     zenoToggle.setClickingTogglesState(true);
-    zenoToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
-    zenoToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
-    zenoToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+    zenoToggle.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
+    zenoToggle.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
+    zenoToggle.setColour(juce::TextButton::textColourOffId, colors.text);
     zenoToggle.onClick = [this]() {
         zenoToggle.setButtonText(zenoToggle.getToggleState() ? "Zeno Mode\n[ ON ]" : "Zeno Mode\n[ OFF ]");
     };
@@ -157,9 +167,9 @@ void A2StarterAudioProcessorEditor::initZenoToggle() {
 void A2StarterAudioProcessorEditor::initPingPongToggle() {
     pingPongToggle.setButtonText("Ping-Pong Mode\n[ OFF ]");
     pingPongToggle.setClickingTogglesState(true);
-    pingPongToggle.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
-    pingPongToggle.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
-    pingPongToggle.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+    pingPongToggle.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
+    pingPongToggle.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
+    pingPongToggle.setColour(juce::TextButton::textColourOffId, colors.text);
     pingPongToggle.onClick = [this]() {
         pingPongToggle.setButtonText(pingPongToggle.getToggleState() ? "Ping-Pong Mode\n[ ON ]"
                                                                      : "Ping-Pong Mode\n[ OFF ]");
@@ -173,9 +183,9 @@ void A2StarterAudioProcessorEditor::initPingPongToggle() {
 
 void A2StarterAudioProcessorEditor::initClearButton() {
     clearButton.setButtonText("Clear Buffer");
-    clearButton.setColour(juce::ToggleButton::textColourId, juce::Colours::black);
-    clearButton.setColour(juce::ToggleButton::tickColourId, juce::Colours::black);
-    clearButton.setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::grey);
+    clearButton.setColour(juce::TextButton::buttonColourId, colors.buttonOff);
+    clearButton.setColour(juce::TextButton::buttonOnColourId, colors.buttonOn);
+    clearButton.setColour(juce::TextButton::textColourOffId, colors.text);
 
     addAndMakeVisible(&clearButton);
 }
@@ -199,8 +209,8 @@ A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProce
 A2StarterAudioProcessorEditor::~A2StarterAudioProcessorEditor() {}
 
 void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
-    g.fillAll(juce::Colours::white);
-    g.setColour(juce::Colours::black);
+    g.fillAll(colors.background);
+    g.setColour(colors.text);
     g.setFont(24.0f);
     g.drawFittedText("Digital Delay Plugin", 0, 10, getWidth(), 30, juce::Justification::centred, 1);
 }
