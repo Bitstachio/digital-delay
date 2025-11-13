@@ -9,7 +9,7 @@ void A2StarterAudioProcessorEditor::initTimeIntervalSlider() {
     timeIntervalLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     timeIntervalUnitLabel.setText("[ s ]", juce::dontSendNotification);
-    timeIntervalUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    timeIntervalUnitLabel.setJustificationType(juce::Justification::centredRight);
     timeIntervalUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     timeIntervalSlider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -36,7 +36,7 @@ void A2StarterAudioProcessorEditor::initFeedbackSlider() {
     feedbackLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     feedbackUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    feedbackUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    feedbackUnitLabel.setJustificationType(juce::Justification::centredRight);
     feedbackUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     feedbackSlider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -63,7 +63,7 @@ void A2StarterAudioProcessorEditor::initDrySlider() {
     dryLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     dryUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    dryUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    dryUnitLabel.setJustificationType(juce::Justification::centredRight);
     dryUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     drySlider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -90,7 +90,7 @@ void A2StarterAudioProcessorEditor::initWetSlider() {
     wetLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     wetUnitLabel.setText("[ % ]", juce::dontSendNotification);
-    wetUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    wetUnitLabel.setJustificationType(juce::Justification::centredRight);
     wetUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     wetSlider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -117,7 +117,7 @@ void A2StarterAudioProcessorEditor::initPingPongFreqSlider() {
     pingPongFreqLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     pingPongFreqUnitLabel.setText("[ Hz ]", juce::dontSendNotification);
-    pingPongFreqUnitLabel.setJustificationType(juce::Justification::centredLeft);
+    pingPongFreqUnitLabel.setJustificationType(juce::Justification::centredRight);
     pingPongFreqUnitLabel.setColour(juce::Label::textColourId, juce::Colours::black);
 
     pingPongFreqSlider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -175,7 +175,7 @@ void A2StarterAudioProcessorEditor::initPingPongToggle() {
 
 A2StarterAudioProcessorEditor::A2StarterAudioProcessorEditor(A2StarterAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p) {
-    setSize(1200, 400);
+    setSize(670, 400);
 
     initTimeIntervalSlider();
     initFeedbackSlider();
@@ -192,38 +192,38 @@ void A2StarterAudioProcessorEditor::paint(juce::Graphics &g) {
     g.fillAll(juce::Colours::white);
     g.setColour(juce::Colours::black);
     g.setFont(24.0f);
-    g.drawFittedText("Digital Delay", 0, 10, getWidth(), 30, juce::Justification::centred, 1);
+    g.drawFittedText("Digital Delay Plugin", 0, 10, getWidth(), 30, juce::Justification::centred, 1);
 }
 
 void A2StarterAudioProcessorEditor::resized() {
-    timeIntervalLabel.setBounds(30, 60, 220, 30);
-    timeIntervalUnitLabel.setBounds(250, 90, 220, 20);
+    timeIntervalLabel.setBounds(30, 60, 250, 30);
+    timeIntervalUnitLabel.setBounds(280, 90, 40, 20);
     timeIntervalLabel.setJustificationType(juce::Justification::left);
-    timeIntervalSlider.setBounds(30, 90, 220, 20);
+    timeIntervalSlider.setBounds(30, 90, 250, 20);
 
-    feedbackLabel.setBounds(30, 140, 220, 30);
-    feedbackUnitLabel.setBounds(250, 170, 220, 20);
+    feedbackLabel.setBounds(30, 140, 250, 30);
+    feedbackUnitLabel.setBounds(280, 170, 40, 20);
     feedbackLabel.setJustificationType(juce::Justification::left);
-    feedbackSlider.setBounds(30, 170, 220, 20);
+    feedbackSlider.setBounds(30, 170, 250, 20);
 
-    dryLabel.setBounds(360, 60, 220, 30);
-    dryUnitLabel.setBounds(580, 90, 220, 20);
+    dryLabel.setBounds(350, 60, 250, 30);
+    dryUnitLabel.setBounds(600, 90, 40, 20);
     dryLabel.setJustificationType(juce::Justification::left);
-    drySlider.setBounds(360, 90, 220, 20);
+    drySlider.setBounds(350, 90, 250, 20);
 
-    wetLabel.setBounds(360, 140, 220, 30);
-    wetUnitLabel.setBounds(580, 170, 220, 20);
+    wetLabel.setBounds(350, 140, 250, 30);
+    wetUnitLabel.setBounds(600, 170, 40, 20);
     wetLabel.setJustificationType(juce::Justification::left);
-    wetSlider.setBounds(360, 170, 220, 20);
+    wetSlider.setBounds(350, 170, 250, 20);
 
-    pingPongFreqLabel.setBounds(360, 220, 220, 30);
-    pingPongFreqUnitLabel.setBounds(580, 250, 220, 20);
+    pingPongFreqLabel.setBounds(350, 220, 250, 30);
+    pingPongFreqUnitLabel.setBounds(600, 250, 40, 20);
     pingPongFreqLabel.setJustificationType(juce::Justification::left);
-    pingPongFreqSlider.setBounds(360, 250, 220, 20);
+    pingPongFreqSlider.setBounds(350, 250, 250, 20);
 
-    zenoToggle.setBounds(30, 220, 150, 60);
+    zenoToggle.setBounds(30, 220, 140, 60);
 
-    pingPongToggle.setBounds(195, 220, 150, 60);
+    pingPongToggle.setBounds(180, 220, 140, 60);
 }
 
 void A2StarterAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
