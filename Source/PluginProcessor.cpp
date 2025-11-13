@@ -178,12 +178,16 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
 
             channelData[i] = juce::jlimit(-1.0f, 1.0f, outSample);
 
+            // Set to float to accommodate Zeno mode
+            float offset = interval * rate;
+
             /* Use addition instead of replacement to support Zeno mode.
              * In Zeno mode, echoes are scheduled in the future, so multiple delayed
              * samples may overlap in the buffer. Adding ensures that upcoming echoes
              * aren't overwritten by zeros from earlier, empty samples. */
-            float offset = interval * rate; // Set to float to accommodate Zeno mode
             if (isZenoMode) {
+                // Use a fixed feedback to avoid loud sound from buildup of overlapping echoes
+                feedback   = 0.65f;
                 float gain = offset / 2.0f;
                 for (int i = 0;; i++, offset += gain, gain /= 2) {
                     int   echoIndex = static_cast<int>(index + offset) % delayBufferLength;
