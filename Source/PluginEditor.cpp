@@ -9,7 +9,7 @@ void A2StarterAudioProcessorEditor::initSlider(
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
     juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId, const juce::String &labelText,
     const juce::String &unitText, double minValue, double maxValue, double step,
-    const A2StarterAudioProcessorEditor::ColorPalette &palette) {
+    const A2StarterAudioProcessorEditor::ColourPalette &palette) {
     mainLabel.setText(labelText, juce::dontSendNotification);
     mainLabel.setJustificationType(juce::Justification::centredLeft);
     mainLabel.setColour(juce::Label::textColourId, palette.text);
@@ -24,6 +24,7 @@ void A2StarterAudioProcessorEditor::initSlider(
     slider.setValue(minValue);
 
     slider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 40, 20);
+    slider.setColour(juce::Slider::backgroundColourId, palette.sliderBackground);
     slider.setColour(juce::Slider::trackColourId, palette.sliderTrack);
     slider.setColour(juce::Slider::thumbColourId, palette.sliderThumb);
     slider.setColour(juce::Slider::textBoxTextColourId, palette.text);

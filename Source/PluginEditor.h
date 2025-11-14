@@ -14,14 +14,15 @@ public:
 private:
     A2StarterAudioProcessor &audioProcessor;
 
-    struct ColorPalette {
-        juce::Colour background  = juce::Colour(0xff1e1e1e);
-        juce::Colour text        = juce::Colour(0xfff0f0f0);
-        juce::Colour accent      = juce::Colour(0xff4aa3df);
-        juce::Colour buttonOff   = juce::Colour(0xff3a3a3a);
-        juce::Colour buttonOn    = juce::Colour(0xff4aa3df);
-        juce::Colour sliderTrack = juce::Colour(0xFF606080);
-        juce::Colour sliderThumb = juce::Colour(0xFF6AC1FF);
+    struct ColourPalette {
+        juce::Colour background       = juce::Colour(0xff1e1e1e);
+        juce::Colour text             = juce::Colour(0xfff0f0f0);
+        juce::Colour accent           = juce::Colour(0xff4aa3df);
+        juce::Colour buttonOff        = juce::Colour(0xff3a3a3a);
+        juce::Colour buttonOn         = juce::Colour(0xff4aa3df);
+        juce::Colour sliderBackground = juce::Colour(0xFF4A4A4A);
+        juce::Colour sliderTrack      = juce::Colour(0xFF3B5770);
+        juce::Colour sliderThumb      = juce::Colour(0xFF6AC1FF);
     } palette;
 
     //===== Component Initializers =====
@@ -30,7 +31,7 @@ private:
                     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> &attachment,
                     juce::AudioProcessorValueTreeState &apvts, const juce::String &paramId,
                     const juce::String &labelText, const juce::String &unitText, double minValue, double maxValue,
-                    double step, const ColorPalette &palette);
+                    double step, const ColourPalette &palette);
 
     void initToggleButton(juce::TextButton                                                      &button,
                           std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> &attachment,
