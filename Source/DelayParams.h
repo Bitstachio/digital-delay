@@ -11,7 +11,7 @@ struct DelayParams {
     inline static constexpr int FEEDBACK_MAX     = 100;
     inline static constexpr int FEEDBACK_STEP    = 1;
 
-    inline static constexpr int DRY_DEFAULT = 80;
+    inline static constexpr int DRY_DEFAULT = 100;
     inline static constexpr int DRY_MIN     = 0;
     inline static constexpr int DRY_MAX     = 100;
     inline static constexpr int DRY_STEP    = 1;

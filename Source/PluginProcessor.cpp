@@ -190,7 +190,7 @@ void A2StarterAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juc
                 float gain = offset / 2.0f;
                 for (int i = 0;; i++, offset += gain, gain /= 2) {
                     int   echoIndex = static_cast<int>(index + offset) % delayBufferLength;
-                    float echo      = inputSample * pow(feedback, i + 1);
+                    float echo      = inputSample * pow(feedback, i);
 
                     if (std::fabs(echo) < 0.0001)
                         break;
